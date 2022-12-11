@@ -54,6 +54,17 @@ CREATE TABLE IF NOT EXISTS public."Languages"
     "LangName" character varying COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT "Languages_pkey" PRIMARY KEY ("ID")
 );
+INSERT INTO public."Languages"("LangName")
+	VALUES ('İngilizce'),
+	('Almanca'),
+	('İtalyanca'),
+	('İspanyolca'),
+	('Çince'),
+	('Rusça'),
+	('Arapça'),
+	('Lehçe'),
+	('Japonca');
+
 
 CREATE TABLE IF NOT EXISTS public."Lecturer"
 (
@@ -125,6 +136,19 @@ CREATE TABLE IF NOT EXISTS public."Technologies"
     CONSTRAINT "Technologies_pkey" PRIMARY KEY ("ID")
 );
 
+INSERT INTO public."Technologies"("TechName")
+	VALUES ('HTML'),
+	('CSS'),
+	('Javascript'),
+	('C'),
+	('C++'),
+	('C#'),
+	('Python'),
+	('Ruby'),
+	('NodeJs'),
+	('Vue'),
+	('Flutter');
+	
 ALTER TABLE IF EXISTS public."Approved_Students"
     ADD CONSTRAINT "Approved_Students_Lecturer_ID_fkey" FOREIGN KEY ("Lecturer_ID")
     REFERENCES public."Lecturer" ("ID") MATCH SIMPLE
