@@ -29,13 +29,13 @@ CREATE TABLE IF NOT EXISTS public."Employer"
 CREATE TABLE IF NOT EXISTS public."Employer_Languages"
 (
     "Employer_ID" integer NOT NULL,
-    "Languages_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Languages_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Employer_Technologies"
 (
     "Employer_ID" integer NOT NULL,
-    "Technologies_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Technologies_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."JobPost"
@@ -112,13 +112,13 @@ CREATE TABLE IF NOT EXISTS public."Student_Applies_Job"
 CREATE TABLE IF NOT EXISTS public."Student_Languages"
 (
     "Student_ID" integer NOT NULL,
-    "Languages_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Languages_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Student_Technologies"
 (
     "Student_ID" integer NOT NULL,
-    "Technologies_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Technologies_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Technologies"
