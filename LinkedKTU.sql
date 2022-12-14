@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS public."Post"
 CREATE TABLE IF NOT EXISTS public."Post_Technologies"
 (
     "Post_ID" integer NOT NULL,
-    "Technologies_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Technologies_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Student"
