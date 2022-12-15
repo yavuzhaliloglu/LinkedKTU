@@ -5,13 +5,13 @@ BEGIN;
 
 CREATE TABLE IF NOT EXISTS public."Approved_Students"
 (
-    "Lecturer_ID" integer NOT NULL,
-    "Student_ID" integer NOT NULL
+    "Lecturer_ID" character varying NOT NULL,
+    "Student_ID" character varying NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Employer"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying NOT NULL,
     "Email" character varying COLLATE pg_catalog."default" NOT NULL,
     "Password" character varying COLLATE pg_catalog."default" NOT NULL,
     "Fullname" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -28,19 +28,19 @@ CREATE TABLE IF NOT EXISTS public."Employer"
 
 CREATE TABLE IF NOT EXISTS public."Employer_Languages"
 (
-    "Employer_ID" integer NOT NULL,
+    "Employer_ID" character varying NOT NULL,
     "Languages_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Employer_Technologies"
 (
-    "Employer_ID" integer NOT NULL,
+    "Employer_ID" character varying NOT NULL,
     "Technologies_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."JobPost"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying NOT NULL,
     "Title" character varying COLLATE pg_catalog."default" NOT NULL,
     "Description" character varying COLLATE pg_catalog."default" NOT NULL,
     "Role" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS public."Languages"
 
 CREATE TABLE IF NOT EXISTS public."Lecturer"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying NOT NULL,
     "Email" character varying COLLATE pg_catalog."default" NOT NULL,
     "Password" character varying COLLATE pg_catalog."default" NOT NULL,
     "Fullname" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS public."Lecturer"
 
 CREATE TABLE IF NOT EXISTS public."Post"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying NOT NULL,
     "Title" character varying COLLATE pg_catalog."default" NOT NULL,
     "Description" character varying COLLATE pg_catalog."default" NOT NULL,
     "Role" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -82,13 +82,13 @@ CREATE TABLE IF NOT EXISTS public."Post"
 
 CREATE TABLE IF NOT EXISTS public."Post_Technologies"
 (
-    "Post_ID" integer NOT NULL,
+    "Post_ID" character varying NOT NULL,
     "Technologies_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Student"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying NOT NULL,
     "Email" character varying COLLATE pg_catalog."default" NOT NULL,
     "Password" character varying COLLATE pg_catalog."default" NOT NULL,
     "Fullname" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -104,20 +104,20 @@ CREATE TABLE IF NOT EXISTS public."Student"
 
 CREATE TABLE IF NOT EXISTS public."Student_Applies_Job"
 (
-    "Student_ID" integer NOT NULL,
-    "JobPost_ID" integer NOT NULL,
+    "Student_ID" character varying NOT NULL,
+    "JobPost_ID" character varying NOT NULL,
     "isAccepted" boolean
 );
 
 CREATE TABLE IF NOT EXISTS public."Student_Languages"
 (
-    "Student_ID" integer NOT NULL,
+    "Student_ID" character varying NOT NULL,
     "Languages_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Student_Technologies"
 (
-    "Student_ID" integer NOT NULL,
+    "Student_ID" character varying NOT NULL,
     "Technologies_ID" integer NOT NULL
 );
 
