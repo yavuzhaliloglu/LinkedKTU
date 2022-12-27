@@ -5,13 +5,13 @@ BEGIN;
 
 CREATE TABLE IF NOT EXISTS public."Approved_Students"
 (
-    "Lecturer_ID" integer NOT NULL,
-    "Student_ID" integer NOT NULL
+    "Lecturer_ID" character varying COLLATE pg_catalog."default" NOT NULL,
+    "Student_ID" character varying COLLATE pg_catalog."default" NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Employer"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying COLLATE pg_catalog."default" NOT NULL,
     "Email" character varying COLLATE pg_catalog."default" NOT NULL,
     "Password" character varying COLLATE pg_catalog."default" NOT NULL,
     "Fullname" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -22,24 +22,26 @@ CREATE TABLE IF NOT EXISTS public."Employer"
     "IsInternshipRemote" boolean NOT NULL,
     "IsWorkRemote" boolean NOT NULL,
     "City" character varying COLLATE pg_catalog."default" NOT NULL,
+    "AccountType" integer DEFAULT 3,
     CONSTRAINT "Employer_pkey" PRIMARY KEY ("ID")
 );
 
 CREATE TABLE IF NOT EXISTS public."Employer_Languages"
 (
-    "Employer_ID" integer NOT NULL,
-    "Languages_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Employer_ID" character varying COLLATE pg_catalog."default" NOT NULL,
+    "Languages_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Employer_Technologies"
 (
-    "Employer_ID" integer NOT NULL,
-    "Technologies_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Employer_ID" character varying COLLATE pg_catalog."default" NOT NULL,
+    "Technologies_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."JobPost"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying COLLATE pg_catalog."default" NOT NULL,
+    "Employer_ID" character varying,
     "Title" character varying COLLATE pg_catalog."default" NOT NULL,
     "Description" character varying COLLATE pg_catalog."default" NOT NULL,
     "Role" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -54,21 +56,10 @@ CREATE TABLE IF NOT EXISTS public."Languages"
     "LangName" character varying COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT "Languages_pkey" PRIMARY KEY ("ID")
 );
-INSERT INTO public."Languages"("LangName")
-	VALUES ('İngilizce'),
-	('Almanca'),
-	('İtalyanca'),
-	('İspanyolca'),
-	('Çince'),
-	('Rusça'),
-	('Arapça'),
-	('Lehçe'),
-	('Japonca');
-
 
 CREATE TABLE IF NOT EXISTS public."Lecturer"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying COLLATE pg_catalog."default" NOT NULL,
     "Email" character varying COLLATE pg_catalog."default" NOT NULL,
     "Password" character varying COLLATE pg_catalog."default" NOT NULL,
     "Fullname" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -76,12 +67,14 @@ CREATE TABLE IF NOT EXISTS public."Lecturer"
     "Image" bytea,
     "Phone" character varying COLLATE pg_catalog."default",
     "Address" character varying COLLATE pg_catalog."default",
+    "AccountType" integer DEFAULT 2,
     CONSTRAINT "Lecturer_pkey" PRIMARY KEY ("ID")
 );
 
 CREATE TABLE IF NOT EXISTS public."Post"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying COLLATE pg_catalog."default" NOT NULL,
+    "Student_ID" character varying,
     "Title" character varying COLLATE pg_catalog."default" NOT NULL,
     "Description" character varying COLLATE pg_catalog."default" NOT NULL,
     "Role" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -91,13 +84,13 @@ CREATE TABLE IF NOT EXISTS public."Post"
 
 CREATE TABLE IF NOT EXISTS public."Post_Technologies"
 (
-    "Post_ID" integer NOT NULL,
-    "Technologies_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Post_ID" character varying COLLATE pg_catalog."default" NOT NULL,
+    "Technologies_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Student"
 (
-    "ID" integer NOT NULL,
+    "ID" character varying COLLATE pg_catalog."default" NOT NULL,
     "Email" character varying COLLATE pg_catalog."default" NOT NULL,
     "Password" character varying COLLATE pg_catalog."default" NOT NULL,
     "Fullname" character varying COLLATE pg_catalog."default" NOT NULL,
@@ -107,26 +100,27 @@ CREATE TABLE IF NOT EXISTS public."Student"
     "Address" character varying COLLATE pg_catalog."default",
     "School" character varying COLLATE pg_catalog."default" NOT NULL,
     "City" character varying COLLATE pg_catalog."default" NOT NULL,
+    "AccountType" integer DEFAULT 1,
     CONSTRAINT "Student_pkey" PRIMARY KEY ("ID")
 );
 
 CREATE TABLE IF NOT EXISTS public."Student_Applies_Job"
 (
-    "Student_ID" integer NOT NULL,
-    "JobPost_ID" integer NOT NULL,
+    "Student_ID" character varying COLLATE pg_catalog."default" NOT NULL,
+    "JobPost_ID" character varying COLLATE pg_catalog."default" NOT NULL,
     "isAccepted" boolean
 );
 
 CREATE TABLE IF NOT EXISTS public."Student_Languages"
 (
-    "Student_ID" integer NOT NULL,
-    "Languages_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Student_ID" character varying COLLATE pg_catalog."default" NOT NULL,
+    "Languages_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Student_Technologies"
 (
-    "Student_ID" integer NOT NULL,
-    "Technologies_ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 )
+    "Student_ID" character varying COLLATE pg_catalog."default" NOT NULL,
+    "Technologies_ID" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public."Technologies"
@@ -136,19 +130,6 @@ CREATE TABLE IF NOT EXISTS public."Technologies"
     CONSTRAINT "Technologies_pkey" PRIMARY KEY ("ID")
 );
 
-INSERT INTO public."Technologies"("TechName")
-	VALUES ('HTML'),
-	('CSS'),
-	('Javascript'),
-	('C'),
-	('C++'),
-	('C#'),
-	('Python'),
-	('Ruby'),
-	('NodeJs'),
-	('Vue'),
-	('Flutter');
-	
 ALTER TABLE IF EXISTS public."Approved_Students"
     ADD CONSTRAINT "Approved_Students_Lecturer_ID_fkey" FOREIGN KEY ("Lecturer_ID")
     REFERENCES public."Lecturer" ("ID") MATCH SIMPLE
@@ -198,23 +179,19 @@ ALTER TABLE IF EXISTS public."Employer_Technologies"
 
 
 ALTER TABLE IF EXISTS public."JobPost"
-    ADD CONSTRAINT "JobPost_ID_fkey" FOREIGN KEY ("ID")
+    ADD FOREIGN KEY ("Employer_ID")
     REFERENCES public."Employer" ("ID") MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
     NOT VALID;
-CREATE INDEX IF NOT EXISTS "JobPost_pkey"
-    ON public."JobPost"("ID");
 
 
 ALTER TABLE IF EXISTS public."Post"
-    ADD CONSTRAINT "Post_ID_fkey" FOREIGN KEY ("ID")
+    ADD FOREIGN KEY ("Student_ID")
     REFERENCES public."Student" ("ID") MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
     NOT VALID;
-CREATE INDEX IF NOT EXISTS "Post_pkey"
-    ON public."Post"("ID");
 
 
 ALTER TABLE IF EXISTS public."Post_Technologies"
